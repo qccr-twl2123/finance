@@ -28,5 +28,5 @@ def show_stock_figure(name,df):
 
 
 if __name__=="__main__":
-     name,bwkj = get_hist_data("002148")
-     show_stock_figure(name,bwkj[bwkj.index>'2017-08-25'])
+     name,bwkj = get_hist_data("000768")
+     show_stock_figure(name,bwkj[bwkj.index>'2017-01-25'])
