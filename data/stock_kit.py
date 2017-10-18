@@ -10,9 +10,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def get_hist_data(code):
-    df = ts.get_stock_basics()
-    return  df.ix[code]['name'],ts.get_hist_data(code)
-
+    return ts.get_hist_data(code)
 
 def show_stock_figure(name,df):
     x = pd.to_datetime(df.index,format="%Y-%m-%d")
@@ -27,6 +25,30 @@ def show_stock_figure(name,df):
     plt.show()
 
 
+def show_sz50s_close_price(stocks):
+    codeList = stocks["code"].T.values
+    nameList = stocks["name"].T.values
+    plt.figure(1,figsize=(20, 4))
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+    for code  in codeList:
+        df = get_hist_data(code)
+        print df
+        x = pd.to_datetime(df.index,format="%Y-%m-%d")
+        y = df["close"].T.values
+        plt.figure(1)
+        plt.plot(x,y, label="dada")
+
+    plt.figure(1)
+    plt.xlabel("交易日期")
+    plt.ylabel("收盘价")
+    plt.title("上证50成分股收盘走势",loc="right")
+    plt.gcf().autofmt_xdate()
+    plt.legend(loc=2)
+    plt.show()
+
 if __name__=="__main__":
-     name,bwkj = get_hist_data("000768")
-     show_stock_figure(name,bwkj[bwkj.index>'2017-01-25'])
+     show_sz50s_close_price(ts.get_sz50s())
+
+
+     # name,bwkj = get_hist_data("002695")
+     #show_stock_figure(name,bwkj[bwkj.index>'2017-01-25'])
