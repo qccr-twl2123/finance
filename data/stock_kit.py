@@ -28,15 +28,17 @@ def show_stock_figure(name,df):
 def show_sz50s_close_price(stocks):
     codeList = stocks["code"].T.values
     nameList = stocks["name"].T.values
-    plt.figure(1,figsize=(20, 4))
+
+    codeToName = dict(zip(codeList,nameList))
+
+    plt.figure(1,figsize=(20, 8))
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     for code  in codeList:
         df = get_hist_data(code)
-        print df
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
         y = df["close"].T.values
         plt.figure(1)
-        plt.plot(x,y, label="dada")
+        plt.plot(x,y, label=codeToName[code])
 
     plt.figure(1)
     plt.xlabel("交易日期")
