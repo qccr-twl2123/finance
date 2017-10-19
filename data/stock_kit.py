@@ -51,11 +51,12 @@ def show_sz50s_close_price(stocks):
 
 if __name__=="__main__":
 
-     # show_sz50s_close_price(ts.get_sz50s())
+      print  type(ts.get_sz50s()["code"].T.values)
+      # show_sz50s_close_price(ts.get_sz50s())
 
-     guofang = pd.read_csv("guofang.csv")
-     print guofang
-
-     show_sz50s_close_price(guofang)
+     # guofang = pd.read_csv("guofang.csv")
+     # print guofang
+     #
+     # show_sz50s_close_price(guofang)
      # name,bwkj = get_hist_data("002695")
      #show_stock_figure(name,bwkj[bwkj.index>'2017-01-25'])
