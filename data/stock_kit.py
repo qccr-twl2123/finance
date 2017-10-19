@@ -34,7 +34,8 @@ def show_sz50s_close_price(stocks):
     plt.figure(1,figsize=(20, 8))
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     for code  in codeList:
-        df = get_hist_data(code)
+        print  code
+        df = get_hist_data(str(code))
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
         y = df["close"].T.values
         plt.figure(1)
@@ -49,8 +50,12 @@ def show_sz50s_close_price(stocks):
     plt.show()
 
 if __name__=="__main__":
-     show_sz50s_close_price(ts.get_sz50s())
 
+     # show_sz50s_close_price(ts.get_sz50s())
 
+     guofang = pd.read_csv("guofang.csv")
+     print guofang
+
+     show_sz50s_close_price(guofang)
      # name,bwkj = get_hist_data("002695")
      #show_stock_figure(name,bwkj[bwkj.index>'2017-01-25'])
