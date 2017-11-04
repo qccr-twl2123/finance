@@ -9,18 +9,35 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-hsh = ts.get_hist_data("002594").truncate(after='2017-10-01')
-hsh['收益率']= hsh['price_change']/hsh['close']
-x = hsh['收益率']
+class StockCorr(object):
 
-mt = ts.get_hist_data("600519").truncate(after='2017-10-01')
-mt['收益率'] = mt.truncate(after='2017-10-01')["price_change"]/mt['close']
-y = mt['收益率']
+    def __init__(self,stock_list,truncate):
+        self.stock_list = stock_list
+        self.truncate = truncate
 
-plt.scatter(x,y)
-plt.title("煌上煌与茅台收益率散点图")
-plt.xlabel("煌上煌收益率")
-plt.ylabel("茅台收益率")
-plt.show()
-print "相关系数:" + x.corr(y)
+    def scatter(self):
+        stock_return_index_list = []
+        stock_name_list = []
+        for stock_name in self.stock_list:
+            stock_hist = ts.get_hist_data(stock_name).truncate(after=self.truncate)
+            stock_hist['收益率'] = stock_hist['price_change']/stock_hist['close']
+            stock_return_index_list.append(stock_hist['收益率'])
+            stock_name_list.append(ts.get_stock_basics().ix[stock_name]['name'])
 
+        x = stock_return_index_list[0]
+        y = stock_return_index_list[1]
+        title = stock_name_list[0]+"与"+stock_name_list[1] +"收益率散点图"
+        plt.scatter(x,y,color="r")
+        plt.title(title)
+        plt.xlabel(stock_name_list[0]+"收益率")
+        plt.ylabel(stock_name_list[1]+"收益率")
+        print x.T.values
+        print x
+        print "相关系数:" + x.corr(y)
+        plt.show()
+
+
+if __name__ == '__main__':
+       stock_code_list =["601398","600050"]
+       stock_corr =  StockCorr(stock_code_list,"2017-10-01")
+       stock_corr.scatter()
