@@ -38,6 +38,6 @@ class StockCorr(object):
 
 
 if __name__ == '__main__':
-       stock_code_list =["601398","601939"]
+       stock_code_list =["601398","601857"]
        stock_corr =  StockCorr(stock_code_list,"2017-10-01")
        stock_corr.scatter()
