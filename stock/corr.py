@@ -33,11 +33,11 @@ class StockCorr(object):
         plt.ylabel(stock_name_list[1]+"收益率")
         print x.T.values
         print x
-        print "相关系数:" + x.corr(y)
+        # print "相关系数:" + x.corr(y)
         plt.show()
 
 
 if __name__ == '__main__':
-       stock_code_list =["601398","600050"]
+       stock_code_list =["601398","601939"]
        stock_corr =  StockCorr(stock_code_list,"2017-10-01")
        stock_corr.scatter()
