@@ -43,11 +43,30 @@ class RmbSupply(object):
     def calculate_growth_rate(self):
         df = self.contact_data()
         df["m0增长率"] = (df["m0"] - df["m0"].shift(-1))/df["m0"]
+        df['m0增长率'].fillna(value=0, inplace=True)
         df["m1增长率"] = (df["m1"] - df["m1"].shift(-1))/df["m1"]
+        df['m1增长率'].fillna(value=0, inplace=True)
         df["m2增长率"] = (df["m2"] - df["m2"].shift(-1))/df["m2"]
+        df['m2增长率'].fillna(value=0, inplace=True)
         return df
 
+    def generate_analysis_hist_chart(self):
+        df = self.calculate_growth_rate()
+        show_data_list = df['m0增长率'].T.values
+        print show_data_list
+        plt.hist(show_data_list,bins=12)
+        plt.title("m0增长率")
+        plt.show()
+
+    def generate_analysis_trend_chart(self):
+        df = self.calculate_growth_rate()
+        x = pd.to_datetime(df.index,format="%Y-%m-%d")
+        y = df['m0增长率'].T.values
+        plt.plot(x, y, label="m0增长率",color="r")
+        plt.show()
+
     def generate_analysis_scatter_chart(self):
+
         df = self.calculate_growth_rate()
         print df
         m0 = df["m0增长率"]
@@ -55,9 +74,6 @@ class RmbSupply(object):
         m2 = df["m2增长率"]
         plt.scatter(m0, m2, color="r")
         plt.show()
-
-
-
 
 if __name__=="__main__":
      year_list = ["2015","2016","2017"]
