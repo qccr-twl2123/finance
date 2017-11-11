@@ -38,6 +38,7 @@ class RmbSupply(object):
             year_data_list.append(self.covert_to_data_frame(year))
 
         df = pd.concat(year_data_list,ignore_index=False)
+        print df
         return df
 
     def calculate_growth_rate(self):
@@ -53,7 +54,6 @@ class RmbSupply(object):
     def generate_analysis_hist_chart(self):
         df = self.calculate_growth_rate()
         show_data_list = df['m0增长率'].T.values
-        print show_data_list
         plt.hist(show_data_list,bins=12)
         plt.title("m0增长率")
         plt.show()
@@ -62,7 +62,6 @@ class RmbSupply(object):
         df = self.calculate_growth_rate()
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
         y = df['m0'].T.values
-        print y
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
         plt.plot(x, y, label="m0",color="r")
         plt.xticks(rotation="45")
