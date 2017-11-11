@@ -47,13 +47,13 @@ class RmbSupply(object):
         df["m2增长率"] = (df["m2"] - df["m2"].shift(-1))/df["m2"]
         return df
 
-    def generate_analysis_chart(self):
+    def generate_analysis_scatter_chart(self):
         df = self.calculate_growth_rate()
         print df
         m0 = df["m0增长率"]
         m1 = df["m1增长率"]
         m2 = df["m2增长率"]
-        plt.scatter(m0,m2,color="r")
+        plt.scatter(m0, m2, color="r")
         plt.show()
 
 
@@ -62,7 +62,5 @@ class RmbSupply(object):
 if __name__=="__main__":
      year_list = ["2015","2016","2017"]
      rmb_supply = RmbSupply(year_list)
-     # print rmb_supply.contact_data()
-     # rmb_supply.calculate_growth_rate()
-     rmb_supply.generate_analysis_chart()
+     rmb_supply.generate_analysis_scatter_chart()
 
