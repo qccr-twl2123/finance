@@ -38,7 +38,6 @@ class RmbSupply(object):
             year_data_list.append(self.covert_to_data_frame(year))
 
         df = pd.concat(year_data_list,ignore_index=False)
-        print df
         return df
 
     def calculate_growth_rate(self):
@@ -61,9 +60,18 @@ class RmbSupply(object):
     def generate_analysis_trend_chart(self):
         df = self.calculate_growth_rate()
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
-        y = df['m0'].T.values
+        m0_y = df['m0增长率'].T.values
+        m1_y = df['m1增长率'].T.values
+        m2_y = df['m2增长率'].T.values
+
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-        plt.plot(x, y, label="m0",color="r")
+        plt.plot(x, m0_y, label="m0增长率",color="r")
+        plt.plot(x, m1_y, label="m1增长率",color="g")
+        plt.plot(x, m2_y, label="m2增长率",color="b")
+        plt.legend()
+        plt.xlabel("日期")
+        plt.ylabel("变化率")
+        plt.title("货币供应量变化率")
         plt.xticks(rotation="45")
         plt.show()
 
