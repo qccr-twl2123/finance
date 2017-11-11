@@ -25,10 +25,6 @@ class  SingleStock(object):
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
         close_price_list = df["close"].T.values
         open_price_list = df['open'].T.values
-
-        print close_price_list.std()
-        print open_price_list.std()
-
         stock_name = self.get_stock_basic("name")
 
         plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
@@ -39,8 +35,6 @@ class  SingleStock(object):
         plt.title(stock_name,loc="right")
         plt.xticks(rotation="45")
         plt.show()
-
-
 
 if __name__ == '__main__':
     stock_code = "600789"
