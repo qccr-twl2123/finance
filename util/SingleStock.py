@@ -9,28 +9,40 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-class StockKit(object):
+class  SingleStock(object):
 
-    def __init__(self, stock_code_list):
-        self.__stock_code_list = stock_code_list
+    def __init__(self, code):
+        self.__code = code
 
-    def get_stock_hsit(self):
-        stock_hist_dict = {}
-        for stock_code in self.__stock_code_list:
-            stock_hist_dict[stock_code] = ts.get_hist_data(stock_code)
-        return stock_hist_dict
+    def get_stock_hist(self):
+        return ts.get_hist_data(self.__code)
 
-    def get_stock_hist_by_code(self,code):
-        return self.get_stock_hsit()[code]
+    def get_stock_basic(self,tag):
+        return ts.get_stock_basics().ix[self.__code][tag]
 
-    def get_stock_basic(self,code):
-        return ts.get_stock_basics().ix[code]
+    def show_close_curve_shape(self):
+        df = self.get_stock_hist()
+        x = pd.to_datetime(df.index,format="%Y-%m-%d")
+        close_price_list = df["close"].T.values
+        open_price_list = df['open'].T.values
+
+        print close_price_list.std()
+        print open_price_list.std()
+
+        stock_name = self.get_stock_basic("name")
+
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        plt.plot(x, close_price_list, c='red',label="收盘价")
+        plt.plot(x, open_price_list, c='y',label="开盘价")
+        plt.xlabel("交易日期")
+        plt.ylabel("收盘价")
+        plt.title(stock_name,loc="right")
+        plt.xticks(rotation="45")
+        plt.show()
 
 
 
 if __name__ == '__main__':
-    stock_code_list=["002371","600789"]
-    stockKit = StockKit(stock_code_list)
-    # print  stockKit.get_stock_hsit()
-    # print stockKit.get_stock_hist_by_code("002371")
-    print stockKit.get_stock_basic("002371")
+    stock_code = "600789"
+    singleStock = SingleStock(stock_code)
+    singleStock.show_close_curve_shape()
