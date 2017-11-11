@@ -61,8 +61,11 @@ class RmbSupply(object):
     def generate_analysis_trend_chart(self):
         df = self.calculate_growth_rate()
         x = pd.to_datetime(df.index,format="%Y-%m-%d")
-        y = df['m0增长率'].T.values
-        plt.plot(x, y, label="m0增长率",color="r")
+        y = df['m0'].T.values
+        print y
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        plt.plot(x, y, label="m0",color="r")
+        plt.xticks(rotation="45")
         plt.show()
 
     def generate_analysis_scatter_chart(self):
@@ -78,5 +81,5 @@ class RmbSupply(object):
 if __name__=="__main__":
      year_list = ["2015","2016","2017"]
      rmb_supply = RmbSupply(year_list)
-     rmb_supply.generate_analysis_scatter_chart()
+     rmb_supply.generate_analysis_trend_chart()
 
