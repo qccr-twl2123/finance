@@ -4,6 +4,7 @@ import urllib2
 import re
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 
 
@@ -17,12 +18,25 @@ r = requests.get(url, headers=headers)
 r.encoding = 'utf'
 soup = BeautifulSoup(r.text,"lxml")
 td_title = soup.find_all("td", class_="xl29")
-year_list = []
-for item in td_title:
-    print item.string
-    year_list.append(item.string)
+year_list = map(lambda x: str(x.string).strip(), td_title)
 
+tr = soup.find_all("tr",attrs={"style":"mso-height-source:userset;height:19.5pt","height":"26"})
+
+m2_list = map(lambda x: str(x.string).strip(), soup.find_all("td", class_="xl57"))
+m2_list = m2_list + map(lambda x: str(x.string).strip(), soup.find_all("td", class_="xl59"))
+
+m1_list = map(lambda x: str(x.string).strip(), tr[2].find_all("td", class_="xl64"))
+m1_list = m1_list+ map(lambda x: str(x.string).strip(), tr[2].find_all("td", class_="xl65"))
+
+m0_list = map(lambda x: str(x.string).strip(), tr[4].find_all("td", class_="xl66"))
+m0_list = m0_list + map(lambda x: str(x.string).strip(), tr[4].find_all("td", class_="xl64"))
+m0_list = m0_list + map(lambda x: str(x.string).strip(), tr[4].find_all("td", class_="xl65"))
 print year_list
+print m2_list
+print m1_list
+print m0_list
+
+
 
 
 
