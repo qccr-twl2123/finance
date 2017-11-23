@@ -46,7 +46,7 @@ df['M2'] = m2_list
 df['M1'] = m1_list
 df['M0'] = m0_list
 print df
-df.to_csv("2013_RMB_SUPPLY.csv")
+df.to_csv("2013_RMB_SUPPLY.csv",index_label="date")
 
 
 
