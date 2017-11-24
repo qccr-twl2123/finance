@@ -16,24 +16,22 @@ class StockCorr(object):
         self.truncate = truncate
 
     def scatter(self):
-        stock_return_index_list = []
+        stock_add_return_index = []
         stock_name_list = []
         for stock_name in self.stock_list:
             stock_hist = ts.get_hist_data(stock_name).truncate(after=self.truncate)
-            stock_hist['收益率'] = stock_hist['price_change']/stock_hist['close']
-            stock_return_index_list.append(stock_hist['收益率'])
+            stock_hist['return_index'] = stock_hist['price_change']/stock_hist['close']
+            stock_add_return_index.append(stock_hist)
             stock_name_list.append(ts.get_stock_basics().ix[stock_name]['name'])
 
-        x = stock_return_index_list[0]
-        y = stock_return_index_list[1]
+        x = stock_add_return_index[0]['return_index']
+        y = stock_add_return_index[1]['return_index']
         title = stock_name_list[0]+"与"+stock_name_list[1] +"收益率散点图"
         plt.scatter(x,y,color="r")
         plt.title(title)
-        plt.xlabel(stock_name_list[0]+"收益率")
-        plt.ylabel(stock_name_list[1]+"收益率")
-        print x.T.values
-        print x
-        # print "相关系数:" + x.corr(y)
+        plt.xlabel(stock_name_list[0]+"return_index")
+        plt.ylabel(stock_name_list[1]+"return_index")
+        print stock_add_return_index[0].return_index.corr(stock_add_return_index[1].return_index)
         plt.show()
 
 

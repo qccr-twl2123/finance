@@ -37,6 +37,6 @@ class  SingleStock(object):
         plt.show()
 
 if __name__ == '__main__':
-    stock_code = "600789"
+    stock_code = "600030"
     singleStock = SingleStock(stock_code)
     singleStock.show_close_curve_shape()

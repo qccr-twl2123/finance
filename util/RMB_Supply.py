@@ -26,7 +26,7 @@ class RmbSupply(object):
         m2 = [m2_1[i] for i in range(len(m2_1)) if np.isnan(m2_1[i]) == False]
 
         # 将csv 转换成表转DateFrame格式数据
-        m_pd = pd.DataFrame(index=dates, columns=(['m0','m1','m2']))
+        m_pd = pd.DataFrame(index=dates, columns=(['m2','m1','m0']))
         m_pd['m0'] = m0
         m_pd['m1'] = m1
         m_pd['m2'] = m2
@@ -38,6 +38,7 @@ class RmbSupply(object):
             year_data_list.append(self.covert_to_data_frame(year))
 
         df = pd.concat(year_data_list,ignore_index=False)
+        print df
         return df
 
     def calculate_growth_rate(self):
