@@ -34,7 +34,7 @@ plt.plot(x, m, label="中长期贷款(三至五年)",c="black")
 plt.legend()
 plt.xlabel("日期")
 plt.ylabel("利率")
-plt.xticks(rotation="45")
+plt.xticks(rotation="90")
 plt.show()
 
 
