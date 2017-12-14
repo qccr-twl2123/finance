@@ -8,6 +8,10 @@
 ### 理论框架
 ### 决策指导
 
+### 投资的本质
+
+![输入图片说明](https://github.com/qccr-twl2123/finance/blob/master/images/投资的本质.png "在这里输入图片标题")
+
 
 ### 决策的形成机制
 ```text
