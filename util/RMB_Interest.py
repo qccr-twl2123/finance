@@ -21,12 +21,15 @@ rate_df['短期贷款(六个月至一年)'] = [float(x) for x in df[df.loan_type
 rate_df['中长期贷款(三至五年)'] = [float(x) for x in df[df.loan_type == '中长期贷款(三至五年)']['rate'].T.values]
 rate_df['中长期贷款(五年以上)'] = [float(x) for x in df[df.loan_type == '中长期贷款(五年以上)']['rate'].T.values]
 
-print rate_df.head()
+# print rate_df.head()
 
 x = pd.to_datetime(rate_df.index,format="%Y-%m-%d")
 y = rate_df['短期贷款(六个月以内)'].T.values
 z = rate_df['短期贷款(六个月至一年)'].T.values
 m = rate_df['中长期贷款(三至五年)'].T.values
+
+print x
+print ts.get_gdp_year()
 
 plt.plot(x, y, label="短期贷款(六个月以内)",c="red")
 plt.plot(x, z, label="短期贷款(六个月至一年)",c="green")
