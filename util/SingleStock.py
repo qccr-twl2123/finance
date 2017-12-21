@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import matplotlib.dates as mdates
 import sys
+import ffn
+import numpy as np
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -17,7 +19,7 @@ class  SingleStock(object):
     def get_stock_hist(self):
         return ts.get_hist_data(self.__code)
 
-    def get_stock_basic(self,tag):
+    def get_stock_basic(self, tag):
         return ts.get_stock_basics().ix[self.__code][tag]
 
     def show_close_curve_shape(self):
@@ -36,7 +38,26 @@ class  SingleStock(object):
         plt.xticks(rotation="45")
         plt.show()
 
+    def get_return_index(self, start_date):
+        df = self.get_stock_hist()
+        df = df[df.index >= start_date].sort_index(ascending = True)
+        close_price = df['close']
+        return_index = ffn.to_returns(close_price)
+
+        x = [pd.to_datetime(i,format="%Y-%m-%d") for i in return_index.index]
+        y = [y for y in return_index.T.values]
+
+        plt.plot(x, y, c="red", label="收益率")
+        plt.xlabel("日期")
+        plt.ylabel("收益率")
+        plt.title(self.get_stock_basic("name")+"历史收益率", loc="right")
+        plt.xticks(rotation="45")
+        plt.show()
+
+
+
 if __name__ == '__main__':
     stock_code = "600030"
     singleStock = SingleStock(stock_code)
-    singleStock.show_close_curve_shape()
+    # singleStock.show_close_curve_shape()
+    singleStock.get_return_index("2016-11-01")
