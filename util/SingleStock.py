@@ -8,6 +8,7 @@ import matplotlib.dates as mdates
 import sys
 import ffn
 import numpy as np
+from scipy.stats import norm
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -54,10 +55,22 @@ class  SingleStock(object):
         plt.xticks(rotation="45")
         plt.show()
 
+    def value_at_risk(self, start_date):
+        df = self.get_stock_hist()
+        df = df[df.index >= start_date].sort_index(ascending=True)
+        close_price = df['close']
+        return_index = ffn.to_returns(close_price)
+
+        # 历史模拟法
+
+        # 协方差估计法
+        print norm.ppf(0.05, return_index.mean(), return_index.std())
+
 
 
 if __name__ == '__main__':
-    stock_code = "600030"
+    stock_code = "601139"
     singleStock = SingleStock(stock_code)
     # singleStock.show_close_curve_shape()
-    singleStock.get_return_index("2016-11-01")
+    # singleStock.get_return_index("2016-11-01")
+    singleStock.value_at_risk("2017-11-01")
