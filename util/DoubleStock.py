@@ -58,7 +58,6 @@ class StockKit(object):
         print stock_x.describe()
 
         print stock_y_name
-        print stock_y.describe()
 
 
 
