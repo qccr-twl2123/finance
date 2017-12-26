@@ -60,6 +60,8 @@ class StockKit(object):
         print stock_y_name
         print stock_y.describe()
 
+
+
 if __name__ == '__main__':
     stock_code_list=["601601","601336"]
     stockKit = StockKit(stock_code_list)
