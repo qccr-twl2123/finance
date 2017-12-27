@@ -1,0 +1,19 @@
+Index: article/2017回顾.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- article/2017回顾.md	(revision d6106ac36a1bd7bdec2cddcf708acd3f90b3ccb8)
++++ article/2017回顾.md	(revision )
+@@ -1,10 +1,8 @@
+ ### 2017 盘点投资机会
+ 
+ ```text
+-2017 市场总体格局是泡沫依旧持续,疯狂不曾减弱
+-如果说事情
++2017 市场总体格局是泡沫依旧持续,疯狂不曾减弱.
+ ```
+-
+ 
+ * 房地产
+ ```text
