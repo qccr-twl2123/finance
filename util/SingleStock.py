@@ -69,8 +69,8 @@ class  SingleStock(object):
 
 
 if __name__ == '__main__':
-    stock_code = "601601"
+    stock_code = "002624"
     singleStock = SingleStock(stock_code)
     singleStock.show_close_curve_shape()
-    # singleStock.get_return_index("2016-11-01")
+    singleStock.get_return_index("2016-11-01")
     singleStock.value_at_risk("2017-11-01")
