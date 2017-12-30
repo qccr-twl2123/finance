@@ -66,11 +66,37 @@ class  SingleStock(object):
         # 协方差估计法
         print norm.ppf(0.05, return_index.mean(), return_index.std())
 
+    def basic_figure(self, start_date):
+        df = self.get_stock_hist()
+        df = df[df.index >= start_date].sort_index(ascending = True)
+        close_price = df['close']
+        return_index = ffn.to_returns(close_price)
+        x = [pd.to_datetime(i,format="%Y-%m-%d") for i in return_index.index]
+        stock_name = self.get_stock_basic("name")
+
+        plt.figure(figsize=(16, 6))
+        plt.subplot(121)
+        y = [y for y in return_index.T.values]
+
+        plt.plot(x, y, c="red", label="收益率")
+        plt.xlabel("日期")
+        plt.ylabel("收益率")
+        plt.title(stock_name+"历史收益率", loc="right")
+        plt.xticks(rotation="45")
+
+        plt.subplot(122)
+        return_index.cumprod()
+        # plt.plot(return_index.cumprod())
+        plt.show()
+
+
 
 
 if __name__ == '__main__':
+
     stock_code = "002624"
     singleStock = SingleStock(stock_code)
-    singleStock.show_close_curve_shape()
-    singleStock.get_return_index("2016-11-01")
-    singleStock.value_at_risk("2017-11-01")
+    # singleStock.show_close_curve_shape()
+    # singleStock.get_return_index("2016-11-01")
+    # singleStock.value_at_risk("2017-11-01")
+    # singleStock.basic_figure("2017-11-01")

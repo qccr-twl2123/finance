@@ -62,8 +62,12 @@ class StockKit(object):
 
 
 
+
+
+
+
 if __name__ == '__main__':
     stock_code_list = ["002624","601336"]
     stockKit = StockKit(stock_code_list)
-    stockKit.scatter("2017-01-01")
-    stockKit.compare_for_basic("2017-01-01")
+    # stockKit.scatter("2017-01-01")
+    # stockKit.compare_for_basic("2017-01-01")
