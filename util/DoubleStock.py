@@ -60,14 +60,24 @@ class StockKit(object):
         print stock_y_name
         print stock_y.describe()
 
+    def ssd(self, start_date):
+        stock_x = self.get_stock_hist_by_code(self.__stock_list[0])
+        stock_y = self.get_stock_hist_by_code(self.__stock_list[1])
+        stock_x = stock_x[stock_x.index > start_date].sort_index(ascending=True)
+        stock_y = stock_y[stock_y.index > start_date].sort_index(ascending=True)
+        stock_x_return_index = ffn.to_returns(stock_x['close'])
+        stock_y_return_index = ffn.to_returns(stock_y['close'])
 
-
-
+        print stock_x_return_index
+        print stock_y_return_index
 
 
 
 if __name__ == '__main__':
-    stock_code_list = ["002624","601336"]
+    stock_code_list = ["601988","600000"]
     stockKit = StockKit(stock_code_list)
+    # print list(pd.date_range("2014-01-01", "2015-01-01"))
+
+    stockKit.ssd("2014-01-01")
     # stockKit.scatter("2017-01-01")
     # stockKit.compare_for_basic("2017-01-01")
