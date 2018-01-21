@@ -86,7 +86,7 @@ class  SingleStock(object):
 
         plt.subplot(122)
         return_index.cumprod()
-        # plt.plot(return_index.cumprod())
+        plt.plot(return_index.cumprod())
         plt.show()
 
 
@@ -94,9 +94,9 @@ class  SingleStock(object):
 
 if __name__ == '__main__':
 
-    stock_code = "002624"
+    stock_code = "600688"
     singleStock = SingleStock(stock_code)
     # singleStock.show_close_curve_shape()
     # singleStock.get_return_index("2016-11-01")
     # singleStock.value_at_risk("2017-11-01")
-    # singleStock.basic_figure("2017-11-01")
+    singleStock.basic_figure("2017-11-01")
