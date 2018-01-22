@@ -52,13 +52,13 @@ class Company(object):
         index_list = []
         report_date_list = []
         for year in year_list:
-            for m in range(3):
+            for m in range(4):
                 index_list.append(str(year)+"-"+str(m+1))
                 report_data = ts.get_report_data(year, m+1)
                 report_data = report_data.set_index("code")
                 report_data = report_data.ix[code]
-                report_date_list.append(str(year)+report_data['report_date'])
-                net_profits_list.append(report_data['report_date','net_profits'])
+                report_date_list.append(str(year)+"-"+report_data['report_date'])
+                net_profits_list.append(report_data['net_profits'])
 
         summary = pd.DataFrame(index=index_list, columns=(['report_date', 'net_profits']))
         summary['net_profits'] = net_profits_list
@@ -74,6 +74,6 @@ if __name__ == '__main__':
        # print xs
        # print  '2017-'+xs['report_date']
        company =  Company("600688.csv")
-       year_list = [2017]
+       year_list = [2015,2016]
        company.financial_analysis(year_list, '600231')
 
