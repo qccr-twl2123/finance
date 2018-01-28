@@ -12,9 +12,7 @@ from scipy.stats import norm
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
 df = ts.get_money_supply()
-print type(df)
-print df
-# plt.plot(m2)
-# plt.show()
+dates = df.index
+m2 = df['m2'].T.values
+print dates
