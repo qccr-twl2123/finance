@@ -9,6 +9,8 @@ import sys
 import ffn
 import numpy as np
 from scipy.stats import norm
+# from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
+from pandas.core import datetools
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -67,10 +69,8 @@ class  SingleStock(object):
         print norm.ppf(0.05, return_index.mean(), return_index.std())
 
     def basic_figure(self, start_date):
-        df = self.get_stock_hist()
-        df = df[df.index >= start_date].sort_index(ascending = True)
-        close_price = df['close']
-        return_index = ffn.to_returns(close_price)
+        df = self.get_return_index()
+        return_index = df['return_index']
         x = [pd.to_datetime(i,format="%Y-%m-%d") for i in return_index.index]
         stock_name = self.get_stock_basic("name")
 
@@ -89,6 +89,13 @@ class  SingleStock(object):
         plt.plot(return_index.cumprod())
         plt.show()
 
+    def get_return_index(self, start_date):
+        df = self.get_stock_hist()
+        df = df[df.index >= start_date].sort_index(ascending = True)
+        close_price = df['close']
+        return_index = ffn.to_returns(close_price)
+        df['return_index'] = return_index
+        return df
 
 
 
@@ -99,4 +106,4 @@ if __name__ == '__main__':
     # singleStock.show_close_curve_shape()
     # singleStock.get_return_index("2016-11-01")
     # singleStock.value_at_risk("2017-11-01")
-    singleStock.basic_figure("2017-11-01")
+    # singleStock.basic_figure("2017-11-01")
